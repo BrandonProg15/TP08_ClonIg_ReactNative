@@ -1,35 +1,36 @@
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { StatusBar } from 'expo-status-bar'
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StatusBar } from 'expo-status-bar';
 
-import HomeScreen from './screens/HomeScreen'
-import DetailScreen from './screens/DetailScreen'
-import ProfileScreen from './screens/ProfileScreen'
+import Detalle from './components/Detalle';
+import HomeScreen from './screens/HomeScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
-const Stack = createNativeStackNavigator()
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-
     <NavigationContainer>
       <StatusBar style="auto" />
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="HomeScreen"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen
-          name="Home"
+          name="HomeScreen"
           component={HomeScreen}
         />
+        
         <Stack.Screen
-          name="Detail"
-          component={DetailScreen}
+          name="Detalle"
+          component={Detalle}
         />
         <Stack.Screen
-          name="Profile"
+          name="ProfileScreen"
           component={ProfileScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
-  )
+  );
 }
