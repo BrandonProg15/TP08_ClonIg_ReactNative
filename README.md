@@ -1,0 +1,1 @@
+instalar: npx expo install @react-native-async-storage/async-storage
