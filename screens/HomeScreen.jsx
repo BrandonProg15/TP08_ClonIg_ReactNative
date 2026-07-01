@@ -1,10 +1,12 @@
 import { View } from 'react-native';
-import StoryList from '../components/StoryList';
+import Historias from '../components/Historias';
+import Feed from '../components/Feed';
 
 export default function HomeScreen() {
     return (
         <View>
-            <StoryList />
+            <Historias />
+            <Feed />
         </View>
     );
 }

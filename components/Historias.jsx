@@ -3,11 +3,11 @@ import { View, Text, FlatList, Image, StyleSheet, ActivityIndicator } from 'reac
 import { LinearGradient } from 'expo-linear-gradient';
 import axios from 'axios';
 
+
 export default function Historias() {
     const [publicaciones, setPublicaciones] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
+    const [error, setError] = useState(null);    
     useEffect(() => {
         axios
             .get('https://api.thecatapi.com/v1/images/search?limit=10')
@@ -47,14 +47,12 @@ export default function Historias() {
                 contentContainerStyle={styles.listPadding}
                 renderItem={({ item }) => (
                     <View style={styles.storyContainer}>
-                    
                         <LinearGradient
                             colors={['#CA1D7E', '#E35157', '#F2703F']}
                             start={{ x: 0.0, y: 1.0 }}
                             end={{ x: 1.0, y: 0.0 }}
                             style={styles.gradientBorder}
                         >
-     
                             <View style={styles.whiteSpacer}>
                                 <Image
                                     source={{ uri: item.url }}
