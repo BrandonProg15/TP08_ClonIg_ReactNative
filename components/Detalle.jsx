@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Detalle() {
     const route = useRoute();
-
-    const { id, url } = route.params || {}; 
-
+    const navigation = useNavigation();
+    const { id, url } = route.params || {};
     const [likes, setLikes] = useState([]);
 
     useEffect(() => {
@@ -51,97 +50,147 @@ function Detalle() {
     };
 
     return (
-        <SafeAreaView>
-        <ScrollView style={styles.postCard}>
-            <View style={styles.postHeader}>
-                <Image 
-                    source={{ uri: "https://i.pravatar.cc/40" }} 
-                    style={styles.avatar} 
-                />
-                <Text style={styles.usuario}>usuario</Text>
-            </View>
-
-       
-            {url && (
-                <Image 
-                    source={{ uri: url }} 
-                    style={styles.postImage} 
-                />
-            )}
-
-
-            <View style={styles.postInfoContainer}>
-                <Text style={styles.postInfo}>{likes.length} likes</Text>
-                
-                <TouchableOpacity onPress={() => añadirLikes(id)} style={styles.likeButton}>
-                    <Text style={styles.likeIcon}>{tieneLike ? "❤️" : "🤍"}</Text>
+        <SafeAreaView style={styles.container}>
+            <View style={styles.headerContainer}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                    <Text style={styles.backButtonText}>‹</Text>
                 </TouchableOpacity>
+                <Text style={styles.headerTitle}>Publicacion publicacionosa</Text>
+                <View style={styles.headerSpacer} />
             </View>
 
-    
-            <View style={styles.postComentarios}>
-                {comentarios.map((c, index) => (
-                    <Text key={index} style={styles.comentarioTexto}>
-                        <Text style={styles.bold}>{c.usuario} </Text>
-                        {c.texto}
-                    </Text>
-                ))}
-            </View>
-        </ScrollView>
+            <ScrollView style={styles.postCard} showsVerticalScrollIndicator={false}>
+                <View style={styles.postHeader}>
+                    <Image
+                        source={{ uri: "https://pravatar.cc" }}
+                        style={styles.avatar}
+                    />
+                    <Text style={styles.usuario}>usuario_instagram</Text>
+                </View>
+
+                {url && (
+                    <Image
+                        source={{ uri: url }}
+                        style={styles.postImage}
+                    />
+                )}
+
+                <View style={styles.actionsContainer}>
+                    <TouchableOpacity onPress={() => añadirLikes(id)} style={styles.likeButton}>
+                        <Text style={styles.likeIcon}>{tieneLike ? "❤️" : "🖤"}</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.postInfoContainer}>
+                    <Text style={styles.postInfo}>{likes.length} Me gusta</Text>
+                </View>
+
+                <View style={styles.postComentarios}>
+                    {comentarios.map((c, index) => (
+                        <Text key={index} style={styles.comentarioTexto}>
+                            <Text style={styles.bold}>{c.usuario} </Text>
+                            {c.texto}
+                        </Text>
+                    ))}
+                </View>
+            </ScrollView>
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    headerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        height: 44,
+        borderBottomWidth: 0.5,
+        borderBottomColor: '#dbdbdb',
+        paddingHorizontal: 10,
+    },
+    backButton: {
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+    },
+    backButtonText: {
+        fontSize: 34,
+        color: '#000',
+        fontWeight: '300',
+        lineHeight: 34,
+    },
+    headerTitle: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#000',
+    },
+    headerSpacer: {
+        width: 35, 
+    },
     postCard: {
         flex: 1,
         backgroundColor: '#fff',
-        marginVertical: 10,
     },
     postHeader: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 10,
+        padding: 12,
     },
     avatar: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
+        width: 32,
+        height: 32,
+        borderRadius: 16,
         marginRight: 10,
+        borderWidth: 0.5,
+        borderColor: '#dbdbdb',
     },
     usuario: {
-        fontWeight: 'bold',
+        fontSize: 13,
+        fontWeight: '600',
+        color: '#262626',
     },
     postImage: {
         width: '100%',
-        height: 300, 
+        height: 400,
         resizeMode: 'cover',
     },
-    postInfoContainer: {
+    actionsContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-    },
-    postInfo: {
-        fontWeight: '600',
+        paddingHorizontal: 14,
+        paddingTop: 12,
+        paddingBottom: 6,
     },
     likeButton: {
-        padding: 5,
+        marginRight: 15,
     },
     likeIcon: {
         fontSize: 24,
     },
+    postInfoContainer: {
+        paddingHorizontal: 14,
+        paddingBottom: 8,
+    },
+    postInfo: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: '#262626',
+    },
     postComentarios: {
-        paddingHorizontal: 10,
+        paddingHorizontal: 14,
         paddingBottom: 15,
     },
     comentarioTexto: {
-        marginVertical: 2,
+        marginVertical: 3,
+        fontSize: 14,
+        color: '#262626',
     },
     bold: {
-        fontWeight: 'bold',
+        fontWeight: '700',
+        color: '#262626',
     },
 });
 

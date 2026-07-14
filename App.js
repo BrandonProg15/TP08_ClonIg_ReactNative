@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <StatusBar style="auto" />
+      <StatusBar style="dark" backgroundColor="#000000" />
       <Stack.Navigator
         initialRouteName="HomeScreen"
         screenOptions={{ headerShown: false }}
@@ -21,7 +21,7 @@ export default function App() {
           name="HomeScreen"
           component={HomeScreen}
         />
-        
+
         <Stack.Screen
           name="Detalle"
           component={Detalle}
